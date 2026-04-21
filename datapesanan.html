@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Pesanan - Mitra Flora</title>
+<link rel="stylesheet" href="adminstyle.css">
+<style>
+.table-pesanan td { vertical-align: middle; }
+.table-pesanan .aksi { white-space: nowrap; }
+.table-pesanan td:nth-child(1) { font-weight: 700; color: #2e7d32; }
+</style>
+</head>
+<body>
+
+<button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="logo mitra flora.webp" alt="Logo">
+        <h2>Mitra<span>Flora</span></h2>
+    </div>
+    <hr>
+    <p class="menu-title">Menu Utama</p>
+    <nav class="menu">
+        <a href="inputproduk.html">📥 Input Produk</a>
+        <a href="manajemenproduk.html">📦 Manajemen Produk</a>
+        <a href="datapesanan.html" class="active">🧾 Data Pesanan</a>
+        <a href="#">👤 Data Customer</a>
+    </nav>
+    <hr>
+    <nav class="menu">
+        <a href="index.html">🏠 Beranda</a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+    <header class="topbar">
+        <h1>Data Pesanan</h1>
+        <div class="user">Admin</div>
+    </header>
+
+    <section class="content">
+        <div class="content-box">
+            <div class="page-title">
+                <h2>Daftar Pesanan</h2>
+                <p>Kelola seluruh transaksi pelanggan Mitra Flora</p>
+            </div>
+
+            <div class="filter-status">
+                <button class="filter-btn active" data-status="all">Semua</button>
+                <button class="filter-btn" data-status="menunggu">Menunggu Konfirmasi</button>
+                <button class="filter-btn" data-status="diproses">Diproses</button>
+                <button class="filter-btn" data-status="dikirim">Dikirim</button>
+                <button class="filter-btn" data-status="selesai">Selesai</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="table-pesanan">
+                    <thead>
+                        <tr>
+                            <th>ID Pesanan</th>
+                            <th>Customer</th>
+                            <th>Tanggal</th>
+                            <th>Produk</th>
+                            <th>Jumlah</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th class="aksi">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablePesanan">
+                        <tr data-status="selesai">
+                            <td>PSN001</td>
+                            <td>Andi</td>
+                            <td>2026-04-18</td>
+                            <td>Monstera</td>
+                            <td>2</td>
+                            <td>Rp 150.000</td>
+                            <td><span class="status selesai">Selesai</span></td>
+                            <td class="aksi">
+                                <button class="btn-ubah" onclick="openUbah(this)">✏️ Ubah</button>
+                                <button class="btn-hapus" onclick="openHapus(this)">🗑 Hapus</button>
+                            </td>
+                        </tr>
+                        <tr data-status="dikirim">
+                            <td>PSN002</td>
+                            <td>Siti</td>
+                            <td>2026-04-18</td>
+                            <td>Aglaonema</td>
+                            <td>1</td>
+                            <td>Rp 100.000</td>
+                            <td><span class="status dikirim">Dikirim</span></td>
+                            <td class="aksi">
+                                <button class="btn-ubah" onclick="openUbah(this)">✏️ Ubah</button>
+                                <button class="btn-hapus" onclick="openHapus(this)">🗑 Hapus</button>
+                            </td>
+                        </tr>
+                        <tr data-status="diproses">
+                            <td>PSN003</td>
+                            <td>Farid</td>
+                            <td>2026-04-19</td>
+                            <td>Lidah Mertua</td>
+                            <td>3</td>
+                            <td>Rp 150.000</td>
+                            <td><span class="status diproses">Diproses</span></td>
+                            <td class="aksi">
+                                <button class="btn-ubah" onclick="openUbah(this)">✏️ Ubah</button>
+                                <button class="btn-hapus" onclick="openHapus(this)">🗑 Hapus</button>
+                            </td>
+                        </tr>
+                        <tr data-status="menunggu">
+                            <td>PSN004</td>
+                            <td>Intan</td>
+                            <td>2026-04-20</td>
+                            <td>Tillandsia</td>
+                            <td>1</td>
+                            <td>Rp 70.000</td>
+                            <td><span class="status menunggu">Menunggu Konfirmasi</span></td>
+                            <td class="aksi">
+                                <button class="btn-ubah" onclick="openUbah(this)">✏️ Ubah</button>
+                                <button class="btn-hapus" onclick="openHapus(this)">🗑 Hapus</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+<footer>
+    <div class="footer-konten">
+        <div class="footer-logo">
+            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+        </div>
+
+        <div class="footer-info">
+            <div class="footer-item">
+                <h3>Mitra Flora</h3>
+                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+            </div>
+
+            <div class="footer-item">
+                <h3>Lokasi</h3>
+                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+            </div>
+
+            <div class="footer-item">
+                <h3>Kontak</h3>
+                <p>Email: mitraflora@email.com</p>
+                <p>WA: 08123456789</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-copy">
+        © 2026 Mitra Flora. Hak cipta dilindungi.
+    </div>
+</footer>
+</main>
+
+<div id="modalStatus" class="modal">
+    <div class="modal-box">
+        <h3>Ubah Status Pesanan</h3>
+        <p>Pilih status baru untuk pesanan ini</p>
+
+        <label>
+            <input type="radio" name="statusPesanan" value="Diproses">
+            Diproses
+        </label>
+        <label>
+            <input type="radio" name="statusPesanan" value="Dikirim">
+            Dikirim
+        </label>
+        <label>
+            <input type="radio" name="statusPesanan" value="Selesai">
+            Selesai
+        </label>
+
+        <div class="modal-action">
+            <button class="btn-batal" onclick="tutupModal()">Batal</button>
+            <button class="btn-save" onclick="simpanStatus()">Simpan</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalHapus" class="modal-delete">
+    <div class="modal-delete-box">
+        <div class="trash-icon">🗑️</div>
+        <h2>Konfirmasi Hapus</h2>
+        <p>Yakin ingin menghapus data pesanan ini?</p>
+        <div class="delete-action">
+            <button class="btn-batal" onclick="tutupHapus()">Batal</button>
+            <button class="btn-yakin" onclick="konfirmasiHapus()">Yakin, Hapus</button>
+        </div>
+    </div>
+</div>
+
+<script src="datapesanan.js"></script>
+</body>
+</html>

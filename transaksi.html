@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Pembelian - Mitra Flora</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <img src="logo mitra flora.webp" alt="Logo Mitra Flora">
+    <h1>Mitra<span class="highlight">Flora</span></h1>
+    <nav>
+        <a href="customer.html">Beranda</a>
+        <a href="produk.html">Produk</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="riwayat.html">Riwayat</a>
+        <a href="akun.html">Akun</a>
+    </nav>
+</header>
+
+<main>
+    <div class="form-page">
+        <div class="form-card">
+
+            <div class="form-card-header">
+                <div>
+                    <h2>🛒 Form Pembelian</h2>
+                    <p>Lengkapi data pemesanan Anda di bawah ini.</p>
+                </div>
+                <button class="btn-close" onclick="window.location.href='katalog.html'" title="Kembali ke katalog">✕</button>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+                    <label>Pilih Produk <span style="color:var(--red)">*</span></label>
+                    <select id="produkSelect" required>
+                        <option value="">-- Pilih Produk --</option>
+                    </select>
+                    <span id="stokInfo"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Harga Satuan</label>
+                    <input type="text" id="harga" readonly placeholder="Pilih produk dulu">
+                    <span id="hargaInfo"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Jumlah <span style="color:var(--red)">*</span></label>
+                    <input type="number" id="jumlah" min="1" value="1" required>
+                </div>
+
+                <div class="form-group full">
+                    <label>Total Harga</label>
+                    <input type="text" id="total" readonly placeholder="—">
+                </div>
+
+                <div class="form-group full">
+                    <label>Nama Lengkap <span style="color:var(--red)">*</span></label>
+                    <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+                </div>
+
+                <div class="form-group full">
+                    <label>Alamat Pengiriman <span style="color:var(--red)">*</span></label>
+                    <textarea id="alamat" rows="3" placeholder="Jl. Contoh No. 1, Kelurahan, Kecamatan, Kota" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Email <span style="color:var(--red)">*</span></label>
+                    <input type="email" id="email" placeholder="email@contoh.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="tel" id="nohp" placeholder="08xxxxxxxxxx">
+                </div>
+
+                <div class="form-group full">
+                    <label>Metode Pembayaran <span style="color:var(--red)">*</span></label>
+                    <select id="metode" required>
+                        <option value="">-- Pilih Metode --</option>
+                        <option value="transfer">Transfer Bank (BCA: 78806350373)</option>
+                        <option value="cod">COD (Bayar di Tempat)</option>
+                    </select>
+                </div>
+
+                <div class="form-group full" id="buktiWrap" style="display:none;">
+                    <label>Upload Bukti Pembayaran <span style="color:var(--red)">*</span></label>
+                    <input type="file" id="bukti" accept="image/*,.pdf">
+                    <span style="font-size:12px; color:var(--text-muted);">Format: JPG, PNG, PDF (maks. 5 MB)</span>
+                </div>
+
+                <div class="form-group full">
+                    <label>Catatan (opsional)</label>
+                    <textarea id="catatan" rows="2" placeholder="Misal: warna pot, kondisi khusus, dll."></textarea>
+                </div>
+
+                <div class="form-actions full">
+                    <a href="katalog.html" class="btn btn-back" style="justify-content:center;">← Batal</a>
+                    <button class="btn-primary" onclick="submitForm()" style="flex:2; justify-content:center;">✅ Kirim Pesanan</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-konten">
+        <div class="footer-logo">
+            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+        </div>
+        <div class="footer-info">
+            <div class="footer-item">
+                <h3>Mitra Flora</h3>
+                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+            </div>
+            <div class="footer-item">
+                <h3>Lokasi</h3>
+                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+            </div>
+            <div class="footer-item">
+                <h3>Kontak</h3>
+                <p>Email: mitraflora@email.com</p>
+                <p>WA: 08123456789</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">© 2026 Mitra Flora. Hak cipta dilindungi.</div>
+</footer>
+
+<script>
+const seedDefaultData = () => {
+    if (localStorage.getItem('produk') !== null) return;
+    const defaults = [
+        { kode:'MF-001', nama:'Anggrek Bulan',  kategori:'Tanaman Indoor',  harga:'150000', stok:'8',  tanggal:'2026-01-10', gambar:'anggrek bulan.jpg' },
+        { kode:'MF-002', nama:'Kaktus',          kategori:'Tanaman Outdoor', harga:'50000',  stok:'3',  tanggal:'2026-02-05', gambar:'kaktus.jpg' },
+        { kode:'MF-003', nama:'Marigold',         kategori:'Tanaman Outdoor', harga:'50000',  stok:'3',  tanggal:'2026-02-10', gambar:'marigold.jpg' },
+        { kode:'MF-004', nama:'Aglonema',         kategori:'Tanaman Indoor',  harga:'80000',  stok:'20', tanggal:'2026-03-01', gambar:'aglonema.jpg' },
+        { kode:'MF-005', nama:'Lidah Mertua',     kategori:'Tanaman Indoor',  harga:'90000',  stok:'6',  tanggal:'2026-03-15', gambar:'lidah mertua.jpg' }
+    ];
+    localStorage.setItem('produk', JSON.stringify(defaults));
+};
+
+let produkData = [];
+
+const formatRp = (n) => 'Rp ' + parseInt(n).toLocaleString('id-ID');
+
+const populateSelect = () => {
+    seedDefaultData();
+    produkData = JSON.parse(localStorage.getItem('produk')) || [];
+    const sel  = document.getElementById('produkSelect');
+
+    produkData.forEach(p => {
+        const stok  = parseInt(p.stok);
+        const label = `${p.nama} (${p.kode}) — ${formatRp(p.harga)} | Stok: ${stok}`;
+        const opt   = document.createElement('option');
+        opt.value   = p.kode;
+        opt.textContent = label;
+        if (stok <= 0) { opt.disabled = true; opt.textContent += ' [Habis]'; }
+        sel.appendChild(opt);
+    });
+
+    const params = new URLSearchParams(location.search);
+    const kodeParam = params.get('kode');
+    if (kodeParam) {
+        sel.value = kodeParam;
+        onProdukChange();
+    }
+};
+
+const onProdukChange = () => {
+    const kode   = document.getElementById('produkSelect').value;
+    const item   = produkData.find(p => p.kode === kode);
+    const hargaEl  = document.getElementById('harga');
+    const stokEl   = document.getElementById('stokInfo');
+    const hargaInfo= document.getElementById('hargaInfo');
+
+    if (!item) {
+        hargaEl.value = '';
+        stokEl.textContent = '';
+        hargaInfo.textContent = '';
+        updateTotal();
+        return;
+    }
+
+    hargaEl.value = formatRp(item.harga);
+    hargaInfo.textContent = `Kategori: ${item.kategori}`;
+
+    const stok = parseInt(item.stok);
+    if (stok <= 0) {
+        stokEl.textContent = '⚠ Stok habis, produk ini tidak dapat dipesan.';
+        stokEl.style.color = 'var(--red)';
+        document.getElementById('jumlah').max = 0;
+    } else if (stok < 5) {
+        stokEl.textContent = `⚠ Stok hampir habis! Tersisa ${stok} pcs.`;
+        stokEl.style.color = '#d97706';
+        document.getElementById('jumlah').max = stok;
+    } else {
+        stokEl.textContent = `✔ Stok tersedia: ${stok} pcs`;
+        stokEl.style.color = '#27ae60';
+        document.getElementById('jumlah').max = stok;
+    }
+
+    updateTotal();
+};
+
+const updateTotal = () => {
+    const kode   = document.getElementById('produkSelect').value;
+    const item   = produkData.find(p => p.kode === kode);
+    const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
+    const totalEl= document.getElementById('total');
+
+    if (item && jumlah > 0) {
+        totalEl.value = formatRp(parseInt(item.harga) * jumlah);
+    } else {
+        totalEl.value = '';
+    }
+};
+
+document.getElementById('metode').addEventListener('change', function() {
+    document.getElementById('buktiWrap').style.display =
+        this.value === 'transfer' ? 'flex' : 'none';
+});
+
+document.getElementById('produkSelect').addEventListener('change', onProdukChange);
+document.getElementById('jumlah').addEventListener('input', updateTotal);
+
+const showToast = (msg) => {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+};
+
+const submitForm = () => {
+    const kode   = document.getElementById('produkSelect').value;
+    const jumlah = parseInt(document.getElementById('jumlah').value);
+    const nama   = document.getElementById('nama').value.trim();
+    const alamat = document.getElementById('alamat').value.trim();
+    const email  = document.getElementById('email').value.trim();
+    const metode = document.getElementById('metode').value;
+
+    if (!kode || !jumlah || !nama || !alamat || !email || !metode) {
+        showToast('⚠ Harap lengkapi semua field wajib!');
+        return;
+    }
+
+    const item = produkData.find(p => p.kode === kode);
+    if (!item) return;
+
+    if (parseInt(item.stok) <= 0) {
+        showToast('❌ Stok produk ini sudah habis!');
+        return;
+    }
+
+    if (jumlah > parseInt(item.stok)) {
+        showToast(`⚠ Jumlah melebihi stok tersedia (${item.stok} pcs)!`);
+        return;
+    }
+
+    if (metode === 'transfer' && !document.getElementById('bukti').files[0]) {
+        showToast('⚠ Harap upload bukti pembayaran!');
+        return;
+    }
+
+    const pesanan = {
+        id: 'ORD-' + Date.now(),
+        tanggal: new Date().toLocaleDateString('id-ID'),
+        kode, nama: item.nama, jumlah,
+        total: parseInt(item.harga) * jumlah,
+        namaPembeli: nama, alamat, email, metode,
+        status: 'Menunggu Konfirmasi'
+    };
+
+    const riwayat = JSON.parse(localStorage.getItem('riwayat')) || [];
+    riwayat.unshift(pesanan);
+    localStorage.setItem('riwayat', JSON.stringify(riwayat));
+
+    showToast('✅ Pesanan berhasil dikirim! Terima kasih.');
+    setTimeout(() => window.location.href = 'riwayat.html', 1800);
+};
+
+document.addEventListener('DOMContentLoaded', populateSelect);
+</script>
+</body>
+</html>

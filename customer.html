@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mitra Flora - Tanaman Hias Berkualitas</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <img src="logo mitra flora.webp" alt="Logo Mitra Flora">
+    <h1>Mitra<span class="highlight">Flora</span></h1>
+    <nav>
+        <a href="customer.html" class="active">Beranda</a>
+        <a href="produk.html">Produk</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="riwayat.html">Riwayat</a>
+        <a href="akun.html">Akun</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="tag"><span class="dot"></span> Tanaman Hias Pilihan</div>
+        <h2>Hadirkan <em>Keindahan Alam</em><br>di Setiap Ruangan</h2>
+        <p>Mitra Flora menyediakan berbagai tanaman hias berkualitas untuk rumah, kantor, dan taman. Temukan koleksi terbaik kami dan pesan dengan mudah.</p>
+        <div class="hero-btn">
+            <a href="katalog.html" class="btn-primary">🛍️ Lihat Katalog</a>
+            <a href="produk.html" class="btn-outline">Pelajari Lebih Lanjut</a>
+        </div>
+    </section>
+
+    <div class="stats-strip">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">🌿</div>
+                <h3 id="statProduk">0</h3>
+                <p>Produk Tersedia</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">🏷️</div>
+                <h3>2</h3>
+                <p>Kategori Tanaman</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">⭐</div>
+                <h3>100%</h3>
+                <p>Kepuasan Pelanggan</p>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="section-header">
+            <span class="section-label">Koleksi Kami</span>
+            <h2>Pilih Kategori Tanaman</h2>
+            <p>Temukan berbagai pilihan tanaman hias yang cantik dan mudah dirawat.</p>
+        </div>
+        <div class="card-grid">
+            <div class="cat-card">
+                <img src="Tanaman Indoor.jpg" alt="Tanaman Indoor">
+                <div class="cat-card-body">
+                    <h3>🌿 Tanaman Indoor</h3>
+                    <p>Percantik ruangan dengan tanaman hijau yang menyegarkan. Ideal untuk rumah, kantor, dan ruang kerja.</p>
+                    <a href="katalog.html#indoor" class="btn-primary btn-sm">Jelajahi →</a>
+                </div>
+            </div>
+            <div class="cat-card">
+                <img src="Tanaman Outdoor.jpg" alt="Tanaman Outdoor">
+                <div class="cat-card-body">
+                    <h3>🌳 Tanaman Outdoor</h3>
+                    <p>Hadirkan nuansa alami di taman dan halaman Anda dengan koleksi tanaman outdoor pilihan kami.</p>
+                    <a href="katalog.html#outdoor" class="btn-primary btn-sm">Jelajahi →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside>
+        <h3>📊 Statistik Produk Terlaris</h3>
+        <div class="progress-item">
+            <p>Monstera <span>120 terjual</span></p>
+            <progress value="120" max="150"></progress>
+        </div>
+        <div class="progress-item">
+            <p>Anggrek Bulan <span>95 terjual</span></p>
+            <progress value="95" max="150"></progress>
+        </div>
+        <div class="progress-item">
+            <p>Philodendron <span>80 terjual</span></p>
+            <progress value="80" max="150"></progress>
+        </div>
+        <div class="progress-item">
+            <p>Calathea <span>60 terjual</span></p>
+            <progress value="60" max="150"></progress>
+        </div>
+    </aside>
+
+    <section>
+        <div class="section-header">
+            <span class="section-label">Solusi Hijau</span>
+            <h2>Untuk Berbagai Jenis Ruangan</h2>
+            <p>Kami menghadirkan tanaman yang tepat untuk setiap jenis ruangan dan kebutuhan Anda.</p>
+        </div>
+        <div class="card-grid">
+            <div class="venue-card">
+                <img src="gedung.jpg" alt="Gedung">
+                <h3>🏢 Gedung</h3>
+            </div>
+            <div class="venue-card">
+                <img src="kantor.jpg" alt="Kantor">
+                <h3>💼 Kantor</h3>
+            </div>
+            <div class="venue-card">
+                <img src="sekolah.jpg" alt="Sekolah">
+                <h3>🏫 Sekolah</h3>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-konten">
+        <div class="footer-logo">
+            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+        </div>
+        <div class="footer-info">
+            <div class="footer-item">
+                <h3>Mitra Flora</h3>
+                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+            </div>
+            <div class="footer-item">
+                <h3>Lokasi</h3>
+                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+            </div>
+            <div class="footer-item">
+                <h3>Kontak</h3>
+                <p>Email: mitraflora@email.com</p>
+                <p>WA: 08123456789</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">© 2026 Mitra Flora. Hak cipta dilindungi.</div>
+</footer>
+
+<script>
+// Hitung produk dari localStorage
+document.addEventListener('DOMContentLoaded', () => {
+    const data = JSON.parse(localStorage.getItem('produk')) || [];
+    const tersedia = data.filter(p => parseInt(p.stok) > 0).length;
+    document.getElementById('statProduk').textContent = tersedia;
+});
+</script>
+</body>
+</html>

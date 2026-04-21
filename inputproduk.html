@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Input Produk - Mitra Flora</title>
+<link rel="stylesheet" href="adminstyle.css">
+<style>
+.form-group input.error, .form-group select.error {
+    border: 2px solid #e74c3c !important;
+    background: #fff5f5;
+}
+.error-msg { color: #e74c3c; font-size: 12px; margin-top: 4px; display: none; }
+.error-msg.show { display: block; }
+.form-group input.success, .form-group select.success {
+    border: 2px solid #27ae60 !important;
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="logo mitra flora.webp" alt="Logo Mitra Flora">
+        <h2>Mitra<span>Flora</span></h2>
+    </div>
+    <hr>
+    <p class="menu-title">Menu Utama</p>
+    <nav class="menu">
+        <a href="inputproduk.html" class="active">📥 Input Produk</a>
+        <a href="manajemenproduk.html">📦 Manajemen Produk</a>
+        <a href="datapesanan.html">🧾 Data Pesanan</a>
+        <a href="#">👤 Data Customer</a>
+    </nav>
+    <hr>
+    <nav class="menu">
+        <a href="index.html">🏠 Beranda</a>
+    </nav>
+</aside>
+
+
+<main class="main">
+    <header class="topbar">
+        <h1>Input Produk</h1>
+        <div class="user">Admin</div>
+    </header>
+
+    <section class="cards">
+        <article class="card card-produk">
+            <div class="card-header">
+                <div class="card-icon">🌿</div>
+                <div><h3>Total Produk</h3><p>Jumlah seluruh produk</p></div>
+            </div>
+            <h2 id="dash-total">0</h2>
+        </article>
+        <article class="card card-pesanan">
+            <div class="card-header">
+                <div class="card-icon">💰</div>
+                <div><h3>Total Nilai Inventaris</h3><p>Nilai seluruh stok</p></div>
+            </div>
+            <h2 id="dash-nilai" style="font-size:1.2rem">Rp 0</h2>
+        </article>
+        <article class="card card-customer">
+            <div class="card-header">
+                <div class="card-icon">⚠️</div>
+                <div><h3>Stok Menipis</h3><p>Stok kurang dari 5</p></div>
+            </div>
+            <h2 id="dash-menipis">0</h2>
+        </article>
+    </section>
+
+    <section class="content-box">
+        <h2>Input Produk Baru</h2>
+        <p>Silakan isi data produk tanaman hias di bawah ini.</p>
+
+        <form class="form-produk" id="formProduk" novalidate>
+
+            <div class="form-group">
+                <label>Kode Barang <span style="color:#e74c3c">*</span></label>
+                <input type="text" id="kodeBarang" placeholder="Contoh: MF-001" required>
+                <span class="error-msg" id="err-kode">Kode barang wajib diisi (hanya huruf, angka, dan tanda '-')</span>
+            </div>
+
+            <div class="form-group">
+                <label>Nama Produk <span style="color:#e74c3c">*</span></label>
+                <input type="text" id="namaProduk" placeholder="Contoh: Monstera Deliciosa" required>
+                <span class="error-msg" id="err-nama">Nama produk wajib diisi (minimal 3 karakter)</span>
+            </div>
+
+            <div class="form-group">
+                <label>Kategori <span style="color:#e74c3c">*</span></label>
+                <select id="kategoriProduk" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option>Tanaman Indoor</option>
+                    <option>Tanaman Outdoor</option>
+                </select>
+                <span class="error-msg" id="err-kategori">Kategori wajib dipilih</span>
+            </div>
+
+            <div class="form-group">
+                <label>Harga <span style="color:#e74c3c">*</span></label>
+                <input type="number" id="hargaProduk" placeholder="Contoh: 150000" min="1" required>
+                <span class="error-msg" id="err-harga">Harga wajib diisi dan harus lebih dari 0</span>
+            </div>
+
+            <div class="form-group">
+                <label>Stok <span style="color:#e74c3c">*</span></label>
+                <input type="number" id="stokProduk" placeholder="Contoh: 20" min="0" required>
+                <span class="error-msg" id="err-stok">Stok wajib diisi dan tidak boleh negatif</span>
+            </div>
+
+            <div class="form-group">
+                <label>Tanggal Masuk <span style="color:#e74c3c">*</span></label>
+                <input type="date" id="tanggalMasuk" required>
+                <span class="error-msg" id="err-tanggal">Tanggal masuk wajib diisi</span>
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1">
+                <label>Upload Gambar <span style="color:#e74c3c">*</span></label>
+                <input type="file" id="gambarProduk" accept="image/*">
+                <span class="error-msg" id="err-gambar">Gambar produk wajib diupload</span>
+            </div>
+
+            <div class="form-action">
+                <button type="submit" class="btn-submit">Simpan Produk</button>
+                <button type="button" class="btn-reset" id="btnReset">Reset</button>
+            </div>
+
+        </form>
+    </section>
+<footer>
+    <div class="footer-konten">
+        <div class="footer-logo">
+            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+        </div>
+
+        <div class="footer-info">
+            <div class="footer-item">
+                <h3>Mitra Flora</h3>
+                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+            </div>
+
+            <div class="footer-item">
+                <h3>Lokasi</h3>
+                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+            </div>
+
+            <div class="footer-item">
+                <h3>Kontak</h3>
+                <p>Email: mitraflora@email.com</p>
+                <p>WA: 08123456789</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-copy">
+        © 2026 Mitra Flora. Hak cipta dilindungi.
+    </div>
+</footer>
+</main>
+<script src="inputproduk.js"></script>
+</body>
+</html>

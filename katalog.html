@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katalog Produk - Mitra Flora</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <img src="logo mitra flora.webp" alt="Logo Mitra Flora">
+    <h1>Mitra<span class="highlight">Flora</span></h1>
+    <nav>
+        <a href="customer.html">Beranda</a>
+        <a href="produk.html">Produk</a>
+        <a href="katalog.html" class="active">Katalog</a>
+        <a href="riwayat.html">Riwayat</a>
+        <a href="akun.html">Akun</a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero" style="min-height:240px; padding:40px 32px;">
+        <div class="tag"><span class="dot"></span> Katalog Lengkap</div>
+        <h2>Temukan Tanaman <em>Impian Anda</em></h2>
+        <p>Pilih dari koleksi tanaman hias indoor dan outdoor berkualitas kami.</p>
+    </section>
+
+    <section style="padding: 36px 48px;">
+        <div class="content-box">
+
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:4px; flex-wrap:wrap;">
+                <div>
+                    <h2>Katalog Produk</h2>
+                    <p>Produk diambil langsung dari data admin — selalu terkini.</p>
+                </div>
+                <span id="produkCount" style="font-size:13px; font-weight:600; color:var(--text-muted); white-space:nowrap; margin-top:4px;"></span>
+            </div>
+
+            <div class="search-filter-bar">
+                <div class="search-wrap">
+                    <span>🔍</span>
+                    <input type="text" id="searchInput" placeholder="Cari nama atau kode produk...">
+                </div>
+                <div class="filter-btns">
+                    <button class="filter-btn active" data-filter="all">Semua</button>
+                    <button class="filter-btn" data-filter="indoor">Indoor</button>
+                    <button class="filter-btn" data-filter="outdoor">Outdoor</button>
+                    <button class="filter-btn" data-filter="tersedia">Stok Tersedia</button>
+                </div>
+            </div>
+
+            <div class="card-grid" id="produkGrid"></div>
+
+            <div class="empty-state" id="emptyState" style="display:none;">
+                <span class="empty-icon">🌱</span>
+                <p>Produk tidak ditemukan. Coba kata kunci atau filter lain.</p>
+            </div>
+
+            <div class="empty-state" id="noData" style="display:none;">
+                <span class="empty-icon">🪴</span>
+                <p style="font-weight:600; color:var(--green-mid); margin-bottom:6px;">Belum ada produk</p>
+                <p>Hubungi admin untuk menambahkan produk ke katalog.</p>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-konten">
+        <div class="footer-logo">
+            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+        </div>
+        <div class="footer-info">
+            <div class="footer-item">
+                <h3>Mitra Flora</h3>
+                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+            </div>
+            <div class="footer-item">
+                <h3>Lokasi</h3>
+                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+            </div>
+            <div class="footer-item">
+                <h3>Kontak</h3>
+                <p>Email: mitraflora@email.com</p>
+                <p>WA: 08123456789</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copy">© 2026 Mitra Flora. Hak cipta dilindungi.</div>
+</footer>
+
+<script>
+const seedDefaultData = () => {
+    if (localStorage.getItem('produk') !== null) return;
+    const defaults = [
+        { kode:'MF-001', nama:'Anggrek Bulan',  kategori:'Tanaman Indoor',  harga:'150000', stok:'8',  tanggal:'2026-01-10', gambar:'anggrek bulan.jpg' },
+        { kode:'MF-002', nama:'Kaktus',          kategori:'Tanaman Outdoor', harga:'50000',  stok:'3',  tanggal:'2026-02-05', gambar:'kaktus.jpg' },
+        { kode:'MF-003', nama:'Marigold',         kategori:'Tanaman Outdoor', harga:'50000',  stok:'3',  tanggal:'2026-02-10', gambar:'marigold.jpg' },
+        { kode:'MF-004', nama:'Aglonema',         kategori:'Tanaman Indoor',  harga:'80000',  stok:'20', tanggal:'2026-03-01', gambar:'aglonema.jpg' },
+        { kode:'MF-005', nama:'Lidah Mertua',     kategori:'Tanaman Indoor',  harga:'90000',  stok:'6',  tanggal:'2026-03-15', gambar:'lidah mertua.jpg' }
+    ];
+    localStorage.setItem('produk', JSON.stringify(defaults));
+};
+
+const getStatus = (stok) => {
+    stok = parseInt(stok);
+    if (isNaN(stok) || stok <= 0) return 'habis';
+    if (stok < 5) return 'hampir';
+    return 'tersedia';
+};
+
+const getStatusLabel = (s) => ({ tersedia:'Tersedia', hampir:'Hampir Habis', habis:'Habis Stok' })[s] || s;
+
+const getKatFix = (k) => (k||'').toLowerCase().includes('indoor') ? 'indoor' : 'outdoor';
+
+const formatHarga = (h) => 'Rp ' + parseInt(h).toLocaleString('id-ID');
+
+let allData    = [];
+let activeFilter = 'all';
+
+const buildCard = (item) => {
+    const st    = getStatus(item.stok);
+    const stLbl = getStatusLabel(st);
+    const imgSrc= item.gambar || '';
+    return `
+    <article class="produk-card" data-kategori="${getKatFix(item.kategori)}" data-status="${st}">
+        <img src="${imgSrc}" alt="${item.nama}" onerror="this.src=''; this.style.height='80px'; this.style.background='#eaf4ee';">
+        <div class="produk-card-body">
+            <span class="kode">${item.kode || ''}</span>
+            <h3>${item.nama}</h3>
+            <div class="harga">${formatHarga(item.harga)}</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+                <span class="badge ${st}">${stLbl}</span>
+                <span class="stok-info">Stok: ${item.stok} pcs</span>
+            </div>
+            <div style="font-size:12px; color:var(--text-muted);">${item.kategori}</div>
+        </div>
+        <div class="produk-card-footer">
+            ${st !== 'habis'
+                ? `<a href="transaksi.html?kode=${encodeURIComponent(item.kode)}" class="btn-primary btn-sm" style="flex:1; justify-content:center;">🛒 Beli</a>`
+                : `<button class="btn-sm" style="flex:1; opacity:.5; cursor:not-allowed; background:var(--green-border); color:var(--text-muted); box-shadow:none;" disabled>Stok Habis</button>`
+            }
+        </div>
+    </article>`;
+};
+
+const applyFilter = () => {
+    const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+    const grid    = document.getElementById('produkGrid');
+    const cards   = grid.querySelectorAll('.produk-card');
+    let visible   = 0;
+
+    cards.forEach(card => {
+        const nama     = card.querySelector('h3').textContent.toLowerCase();
+        const kode     = card.querySelector('.kode').textContent.toLowerCase();
+        const kategori = card.dataset.kategori;
+        const status   = card.dataset.status;
+
+        const matchSearch = !keyword || nama.includes(keyword) || kode.includes(keyword);
+        const matchFilter = activeFilter === 'all'
+            || activeFilter === kategori
+            || (activeFilter === 'tersedia' && status !== 'habis');
+
+        if (matchSearch && matchFilter) { card.style.display = ''; visible++; }
+        else card.style.display = 'none';
+    });
+
+    document.getElementById('emptyState').style.display = (visible === 0 && allData.length > 0) ? 'flex' : 'none';
+    document.getElementById('produkCount').textContent  = `Menampilkan ${visible} produk`;
+};
+
+const renderAll = () => {
+    seedDefaultData();
+    allData = JSON.parse(localStorage.getItem('produk')) || [];
+    const grid = document.getElementById('produkGrid');
+    document.getElementById('noData').style.display = allData.length === 0 ? 'flex' : 'none';
+
+    if (allData.length === 0) { grid.innerHTML = ''; return; }
+
+    grid.innerHTML = allData.map(buildCard).join('');
+
+    // Anchor dari produk.html
+    const hash = location.hash.replace('#', '');
+    if (hash === 'indoor' || hash === 'outdoor') {
+        activeFilter = hash;
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.filter === hash);
+        });
+    }
+
+    applyFilter();
+};
+
+document.getElementById('searchInput').addEventListener('input', applyFilter);
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        activeFilter = btn.dataset.filter;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', renderAll);
+
+window.addEventListener('storage', (e) => {
+    if (e.key === 'produk') renderAll();
+});
+</script>
+</body>
+</html>

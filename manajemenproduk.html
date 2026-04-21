@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Produk - Mitra Flora</title>
+<link rel="stylesheet" href="adminstyle.css">
+</head>
+
+<body>
+
+<button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="logo mitra flora.webp" alt="Logo">
+        <h2>Mitra<span>Flora</span></h2>
+    </div>
+    <hr>
+    <p class="menu-title">Menu Utama</p>
+    <nav class="menu">
+        <a href="inputproduk.html">&#128229; Input Produk</a>
+        <a href="manajemenproduk.html" class="active">&#128230; Manajemen Produk</a>
+        <a href="datapesanan.html">&#129534; Data Pesanan</a>
+        <a href="#">&#128100; Data Customer</a>
+    </nav>
+    <hr>
+    <nav class="menu">
+        <a href="index.html">&#127968; Beranda</a>
+    </nav>
+</aside>
+
+
+<main class="main">
+
+    <header class="topbar">
+        <h1>Manajemen Produk</h1>
+        <div class="user">Admin</div>
+    </header>
+
+    <section class="summary-cards">
+        <div class="summary-row">
+            <div class="summary-card">
+                <div class="icon">&#127807;</div>
+                <h3>Indoor</h3>
+                <p id="sum-indoor">0 Produk</p>
+            </div>
+            <div class="summary-card">
+                <div class="icon">&#127795;</div>
+                <h3>Outdoor</h3>
+                <p id="sum-outdoor">0 Produk</p>
+            </div>
+        </div>
+        <div class="summary-row">
+            <div class="summary-card">
+                <div class="icon">&#128230;</div>
+                <h3>Total Kategori</h3>
+                <p>2 Kategori</p>
+            </div>
+            <div class="summary-card">
+                <div class="icon">&#128202;</div>
+                <h3>Total Stok</h3>
+                <p id="sum-stok">0 Pcs</p>
+            </div>
+            <div class="summary-card warning">
+                <div class="icon">&#9888;&#65039;</div>
+                <h3>Stok Hampir Habis</h3>
+                <p id="sum-hampir">0 Produk</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="content-box">
+
+            <div class="table-header">
+                <h2>Daftar Produk</h2>
+                <p>Kelola produk tanaman hias</p>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="&#128269; Cari berdasarkan nama atau kode barang...">
+            </div>
+
+            <div class="filter-box">
+                <button class="filter-btn active" onclick="filterTable('all', event)">Semua</button>
+                <button class="filter-btn" onclick="filterTable('indoor', event)">Indoor</button>
+                <button class="filter-btn" onclick="filterTable('outdoor', event)">Outdoor</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="table-produk">
+                    <thead>
+                        <tr>
+                            <th>Gambar</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Produk</th>
+                            <th>Kategori</th>
+                            <th>Harga</th>
+                            <th>Stok</th>
+                            <th>Tanggal Masuk</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="emptySearch" style="display:none; text-align:center; padding:30px 20px; color:#6b7c6c;">
+                <div style="font-size:2rem; margin-bottom:8px;">&#128269;</div>
+                <p>Produk tidak ditemukan. Coba kata kunci lain.</p>
+            </div>
+
+            <div id="emptyData" style="display:none; text-align:center; padding:40px 20px; color:#6b7c6c;">
+                <div style="font-size:2.5rem; margin-bottom:10px;">&#127807;</div>
+                <p style="font-size:15px; font-weight:600; color:#2e5c3a; margin-bottom:6px;">Belum ada produk</p>
+                <p>Tambahkan produk pertama Anda melalui menu Input Produk.</p>
+            </div>
+
+            <div class="add-wrapper">
+                <button class="btn-add" onclick="goInput()">&#10133; Tambah Produk</button>
+            </div>
+
+        </div>
+    </section>
+
+<footer>
+    <div class="footer-konten">
+        <div class="footer-logo">
+            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+        </div>
+
+        <div class="footer-info">
+            <div class="footer-item">
+                <h3>Mitra Flora</h3>
+                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+            </div>
+
+            <div class="footer-item">
+                <h3>Lokasi</h3>
+                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+            </div>
+
+            <div class="footer-item">
+                <h3>Kontak</h3>
+                <p>Email: mitraflora@email.com</p>
+                <p>WA: 08123456789</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-copy">
+        © 2026 Mitra Flora. Hak cipta dilindungi.
+    </div>
+</footer>
+
+</main>
+
+<div id="deleteModal" class="modal-delete">
+    <div class="modal-delete-box">
+        <div class="trash-icon">&#128465;&#65039;</div>
+        <h2>Konfirmasi Hapus</h2>
+        <p>Yakin ingin menghapus produk ini?</p>
+        <div class="delete-action">
+            <button class="btn-batal" onclick="closeDelete()">Batal</button>
+            <button class="btn-yakin" onclick="confirmDelete()">Yakin</button>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal-edit">
+    <div class="modal-edit-box">
+        <h2>Edit Produk</h2>
+
+        <label>Gambar Produk</label>
+        <img id="editPreview" class="edit-img-preview" alt="Preview">
+        <input type="file" id="editUpload" accept="image/*">
+
+        <label>Kode Barang</label>
+        <input type="text" id="editKode">
+
+        <label>Nama Produk</label>
+        <input type="text" id="editNama">
+
+        <label>Kategori</label>
+        <select id="editKategori">
+            <option>Tanaman Indoor</option>
+            <option>Tanaman Outdoor</option>
+        </select>
+
+        <label>Harga</label>
+        <input type="number" id="editHarga">
+
+        <label>Stok</label>
+        <input type="number" id="editStok">
+
+        <label>Tanggal Masuk</label>
+        <input type="date" id="editTanggal">
+
+        <label>Status</label>
+        <input type="text" id="autoStatus" disabled>
+
+        <div class="edit-action">
+            <button class="btn-cancel" onclick="closeEdit()">Batal</button>
+            <button class="btn-save" onclick="saveEdit()">Simpan Perubahan</button>
+        </div>
+    </div>
+</div>
+
+<script src="manajemenproduk.js"></script>
+
+</body>
+</html>
