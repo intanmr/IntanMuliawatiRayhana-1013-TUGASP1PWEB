@@ -1,10 +1,12 @@
 const hamburger = document.getElementById('hamburger');
 const sidebar   = document.getElementById('sidebar');
 const overlay   = document.getElementById('overlay');
+
 hamburger.addEventListener('click', () => {
     sidebar.classList.toggle('open');
     overlay.classList.toggle('open');
 });
+
 overlay.addEventListener('click', () => {
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
@@ -13,17 +15,18 @@ overlay.addEventListener('click', () => {
 let targetRow   = null;
 let targetHapus = null;
 
-document.querySelector('.filter-status').addEventListener('click', (e) => {
-    if (!e.target.classList.contains('filter-btn')) return;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    e.target.classList.add('active');
+const filterPesanan = document.getElementById('filterPesanan');
 
-    const status = e.target.dataset.status;
-    document.querySelectorAll('#tablePesanan tr').forEach(row => {
-        const rowStatus = row.dataset.status || '';
-        row.style.display = (status === 'all' || rowStatus === status) ? '' : 'none';
+if (filterPesanan) {
+    filterPesanan.addEventListener('change', function () {
+        const status = this.value;
+
+        document.querySelectorAll('#tablePesanan tr').forEach(row => {
+            const rowStatus = row.dataset.status || '';
+            row.style.display = (status === 'all' || rowStatus === status) ? '' : 'none';
+        });
     });
-});
+}
 
 const openUbah = (btn) => {
     targetRow = btn.closest('tr');
@@ -44,9 +47,12 @@ const simpanStatus = () => {
     const statusBaru = selected.value;
     const statusKey  = statusBaru.toLowerCase().replace(' ', '');
     const statusCell = targetRow.querySelector('.status');
+
     statusCell.textContent = statusBaru;
     statusCell.className   = 'status ' + statusKey;
     targetRow.dataset.status = statusKey;
+
+    if (filterPesanan) filterPesanan.dispatchEvent(new Event('change'));
 
     tutupModal();
 };

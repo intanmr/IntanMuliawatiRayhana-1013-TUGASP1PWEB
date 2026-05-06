@@ -26,7 +26,7 @@
     <hr>
     <p class="menu-title">Menu Utama</p>
     <nav class="menu">
-        <a href="inputproduk.html">📥 Input Produk</a>
+        <a href="inputproduk.html">📥 Form Tambah Produk</a>
         <a href="manajemenproduk.html">📦 Manajemen Produk</a>
         <a href="datapesanan.html" class="active">🧾 Data Pesanan</a>
         <a href="#">👤 Data Customer</a>
@@ -37,7 +37,6 @@
     </nav>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
     <header class="topbar">
         <h1>Data Pesanan</h1>
@@ -52,11 +51,13 @@
             </div>
 
             <div class="filter-status">
-                <button class="filter-btn active" data-status="all">Semua</button>
-                <button class="filter-btn" data-status="menunggu">Menunggu Konfirmasi</button>
-                <button class="filter-btn" data-status="diproses">Diproses</button>
-                <button class="filter-btn" data-status="dikirim">Dikirim</button>
-                <button class="filter-btn" data-status="selesai">Selesai</button>
+                <select id="filterPesanan" class="filter-dropdown">
+                    <option value="all">Semua Status</option>
+                    <option value="menunggu">Menunggu Konfirmasi</option>
+                    <option value="diproses">Diproses</option>
+                    <option value="dikirim">Dikirim</option>
+                    <option value="selesai">Selesai</option>
+                </select>
             </div>
 
             <div class="table-wrapper">
@@ -132,35 +133,35 @@
         </div>
     </section>
 
-<footer>
-    <div class="footer-konten">
-        <div class="footer-logo">
-            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+    <footer>
+        <div class="footer-konten">
+            <div class="footer-logo">
+                <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+            </div>
+
+            <div class="footer-info">
+                <div class="footer-item">
+                    <h3>Mitra Flora</h3>
+                    <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+                </div>
+
+                <div class="footer-item">
+                    <h3>Lokasi</h3>
+                    <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+                </div>
+
+                <div class="footer-item">
+                    <h3>Kontak</h3>
+                    <p>Email: mitraflora@email.com</p>
+                    <p>WA: 08123456789</p>
+                </div>
+            </div>
         </div>
 
-        <div class="footer-info">
-            <div class="footer-item">
-                <h3>Mitra Flora</h3>
-                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
-            </div>
-
-            <div class="footer-item">
-                <h3>Lokasi</h3>
-                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
-            </div>
-
-            <div class="footer-item">
-                <h3>Kontak</h3>
-                <p>Email: mitraflora@email.com</p>
-                <p>WA: 08123456789</p>
-            </div>
+        <div class="footer-copy">
+            © 2026 Mitra Flora. Hak cipta dilindungi.
         </div>
-    </div>
-
-    <div class="footer-copy">
-        © 2026 Mitra Flora. Hak cipta dilindungi.
-    </div>
-</footer>
+    </footer>
 </main>
 
 <div id="modalStatus" class="modal">

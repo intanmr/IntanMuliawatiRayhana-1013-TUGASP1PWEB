@@ -63,7 +63,6 @@ const renderTable = () => {
     const data  = JSON.parse(localStorage.getItem("produk")) || [];
     const tbody = document.getElementById("tableBody");
 
-    /* array method: .map() + .join() → innerHTML */
     tbody.innerHTML = data.map(item => buildRow(item)).join("");
 
     document.getElementById("emptyData").style.display = data.length === 0 ? "block" : "none";
@@ -72,10 +71,8 @@ const renderTable = () => {
     applySearchAndFilter();
 };
 
-const filterTable = (category, e) => {
+const filterTable = (category) => {
     activeFilter = category;
-    document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-    if (e && e.target) e.target.classList.add("active");
     applySearchAndFilter();
 };
 

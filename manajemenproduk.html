@@ -33,7 +33,6 @@
     </nav>
 </aside>
 
-
 <main class="main">
 
     <header class="topbar">
@@ -41,123 +40,136 @@
         <div class="user">Admin</div>
     </header>
 
-    <section class="summary-cards">
-        <div class="summary-row">
-            <div class="summary-card">
-                <div class="icon">&#127807;</div>
-                <h3>Indoor</h3>
-                <p id="sum-indoor">0 Produk</p>
-            </div>
-            <div class="summary-card">
-                <div class="icon">&#127795;</div>
-                <h3>Outdoor</h3>
-                <p id="sum-outdoor">0 Produk</p>
-            </div>
+    <div class="admin-page-layout admin-page-layout--left-stat">
+
+        <aside class="admin-stat-sidebar">
+            <section class="summary-cards">
+                <div class="summary-row">
+                    <div class="summary-card">
+                        <div class="icon">&#127807;</div>
+                        <h3>Indoor</h3>
+                        <p id="sum-indoor">0 Produk</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="icon">&#127795;</div>
+                        <h3>Outdoor</h3>
+                        <p id="sum-outdoor">0 Produk</p>
+                    </div>
+                </div>
+
+                <div class="summary-row">
+                    <div class="summary-card">
+                        <div class="icon">&#128230;</div>
+                        <h3>Total Kategori</h3>
+                        <p>2 Kategori</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="icon">&#128202;</div>
+                        <h3>Total Stok</h3>
+                        <p id="sum-stok">0 Pcs</p>
+                    </div>
+                    <div class="summary-card warning">
+                        <div class="icon">&#9888;&#65039;</div>
+                        <h3>Stok Hampir Habis</h3>
+                        <p id="sum-hampir">0 Produk</p>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <div class="admin-main-content">
+            <section class="content">
+                <div class="content-box">
+
+                    <div class="table-header">
+                        <h2>Daftar Produk</h2>
+                        <p>Kelola produk tanaman hias</p>
+                    </div>
+
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="&#128269; Cari berdasarkan nama atau kode barang...">
+                    </div>
+
+                    <div class="filter-dropdown-wrapper">
+                        <div class="custom-select-wrap">
+                            <select id="filterKategori" class="filter-kategori-select" onchange="filterTable(this.value)">
+                                <option value="all">&#128269; Semua Kategori</option>
+                                <option value="indoor">&#127807; Tanaman Indoor</option>
+                                <option value="outdoor">&#127795; Tanaman Outdoor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="table-produk">
+                            <thead>
+                                <tr>
+                                    <th>Gambar</th>
+                                    <th>Kode Barang</th>
+                                    <th>Nama Produk</th>
+                                    <th>Kategori</th>
+                                    <th>Harga</th>
+                                    <th>Stok</th>
+                                    <th>Tanggal Masuk</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="emptySearch" style="display:none; text-align:center; padding:30px 20px; color:#6b7c6c;">
+                        <div style="font-size:2rem; margin-bottom:8px;">&#128269;</div>
+                        <p>Produk tidak ditemukan. Coba kata kunci lain.</p>
+                    </div>
+
+                    <div id="emptyData" style="display:none; text-align:center; padding:40px 20px; color:#6b7c6c;">
+                        <div style="font-size:2.5rem; margin-bottom:10px;">&#127807;</div>
+                        <p style="font-size:15px; font-weight:600; color:#2e5c3a; margin-bottom:6px;">Belum ada produk</p>
+                        <p>Tambahkan produk pertama Anda melalui menu Input Produk.</p>
+                    </div>
+
+                    <div class="add-wrapper">
+                        <button class="btn-add" onclick="goInput()">&#10133; Tambah Produk</button>
+                    </div>
+
+                </div>
+            </section>
         </div>
-        <div class="summary-row">
-            <div class="summary-card">
-                <div class="icon">&#128230;</div>
-                <h3>Total Kategori</h3>
-                <p>2 Kategori</p>
-            </div>
-            <div class="summary-card">
-                <div class="icon">&#128202;</div>
-                <h3>Total Stok</h3>
-                <p id="sum-stok">0 Pcs</p>
-            </div>
-            <div class="summary-card warning">
-                <div class="icon">&#9888;&#65039;</div>
-                <h3>Stok Hampir Habis</h3>
-                <p id="sum-hampir">0 Produk</p>
-            </div>
-        </div>
-    </section>
 
-    <section class="content">
-        <div class="content-box">
-
-            <div class="table-header">
-                <h2>Daftar Produk</h2>
-                <p>Kelola produk tanaman hias</p>
-            </div>
-
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="&#128269; Cari berdasarkan nama atau kode barang...">
-            </div>
-
-            <div class="filter-box">
-                <button class="filter-btn active" onclick="filterTable('all', event)">Semua</button>
-                <button class="filter-btn" onclick="filterTable('indoor', event)">Indoor</button>
-                <button class="filter-btn" onclick="filterTable('outdoor', event)">Outdoor</button>
-            </div>
-
-            <div class="table-wrapper">
-                <table class="table-produk">
-                    <thead>
-                        <tr>
-                            <th>Gambar</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Produk</th>
-                            <th>Kategori</th>
-                            <th>Harga</th>
-                            <th>Stok</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                    </tbody>
-                </table>
-            </div>
-
-            <div id="emptySearch" style="display:none; text-align:center; padding:30px 20px; color:#6b7c6c;">
-                <div style="font-size:2rem; margin-bottom:8px;">&#128269;</div>
-                <p>Produk tidak ditemukan. Coba kata kunci lain.</p>
-            </div>
-
-            <div id="emptyData" style="display:none; text-align:center; padding:40px 20px; color:#6b7c6c;">
-                <div style="font-size:2.5rem; margin-bottom:10px;">&#127807;</div>
-                <p style="font-size:15px; font-weight:600; color:#2e5c3a; margin-bottom:6px;">Belum ada produk</p>
-                <p>Tambahkan produk pertama Anda melalui menu Input Produk.</p>
-            </div>
-
-            <div class="add-wrapper">
-                <button class="btn-add" onclick="goInput()">&#10133; Tambah Produk</button>
-            </div>
-
-        </div>
-    </section>
-
-<footer>
-    <div class="footer-konten">
-        <div class="footer-logo">
-            <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
-        </div>
-
-        <div class="footer-info">
-            <div class="footer-item">
-                <h3>Mitra Flora</h3>
-                <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
-            </div>
-
-            <div class="footer-item">
-                <h3>Lokasi</h3>
-                <p>Jl. Kalimantan 10, Jember, Indonesia</p>
-            </div>
-
-            <div class="footer-item">
-                <h3>Kontak</h3>
-                <p>Email: mitraflora@email.com</p>
-                <p>WA: 08123456789</p>
-            </div>
-        </div>
     </div>
 
-    <div class="footer-copy">
-        © 2026 Mitra Flora. Hak cipta dilindungi.
-    </div>
-</footer>
+    <footer>
+        <div class="footer-konten">
+            <div class="footer-logo">
+                <img src="logo mitra flora.webp" alt="Mitra Flora Logo">
+            </div>
+
+            <div class="footer-info">
+                <div class="footer-item">
+                    <h3>Mitra Flora</h3>
+                    <p>Menyediakan berbagai kebutuhan tanaman hias berkualitas untuk rumah, kantor, dan taman.</p>
+                </div>
+
+                <div class="footer-item">
+                    <h3>Lokasi</h3>
+                    <p>Jl. Kalimantan 10, Jember, Indonesia</p>
+                </div>
+
+                <div class="footer-item">
+                    <h3>Kontak</h3>
+                    <p>Email: mitraflora@email.com</p>
+                    <p>WA: 08123456789</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-copy">
+            © 2026 Mitra Flora. Hak cipta dilindungi.
+        </div>
+    </footer>
 
 </main>
 
